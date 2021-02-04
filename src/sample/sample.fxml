@@ -20,6 +20,7 @@
             <Button mnemonicParsing="false" onAction="#newSquare" prefWidth="90.0" text="Nový štvorec"/>
             <Button mnemonicParsing="false" onAction="#newEllipse" prefWidth="90.0" text="Nová elipsa"/>
             <Button mnemonicParsing="false" onAction="#save" prefWidth="90.0" text="Uložiť"/>
+            <Button mnemonicParsing="false" onAction="#clear" prefWidth="90.0" text="Clear"/>
             <Button mnemonicParsing="false" onAction="#load" prefWidth="90.0" text="Otvoriť"/>
          </children>
       </VBox>

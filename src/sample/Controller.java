@@ -4,10 +4,9 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -54,5 +53,56 @@ public class Controller
 
     public void load(ActionEvent actionEvent)
     {
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader("obraz.txt"));
+            String row = br.readLine();
+
+
+            while (row != null)
+            {
+                String[] data = row.split(",");
+
+                switch (data[0])
+                {
+                    case "E": MojaElipsa elipsa = new MojaElipsa(Double.parseDouble(data[1]), Double.parseDouble(data[2]),
+                            Double.parseDouble(data[3]),Double.parseDouble(data[4]), Color.valueOf(data[5]));
+                            obraz.add(elipsa);
+                            platno.getChildren().add(elipsa.getGrafika());
+                            break;
+
+                    case "K": MojKruh kruh = new MojKruh(Double.parseDouble(data[1]), Double.parseDouble(data[2]),
+                            Double.parseDouble(data[3]),Color.valueOf(data[4]));
+                            obraz.add(kruh);
+                            platno.getChildren().add(kruh.getGrafika());
+                            break;
+
+                    case "S": MojStvorec stvorec = new MojStvorec(Double.parseDouble(data[1]), Double.parseDouble(data[2]),
+                            Double.parseDouble(data[3]), Color.valueOf(data[4]));
+                            obraz.add(stvorec);
+                            platno.getChildren().add(stvorec.getGrafika());
+                            break;
+
+                    default: obraz.add(new MojElement(Double.parseDouble(data[1]), Double.parseDouble(data[2])));
+                }
+
+                row = br.readLine();
+            }
+
+            br.close();
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            System.err.println("Problem with loading from file.");
+        }
     }
+
+    public void clear(ActionEvent actionEvent)
+    {
+        obraz.clear();
+        platno.getChildren().clear();
+    }
+
 }
