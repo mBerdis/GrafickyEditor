@@ -7,7 +7,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Shape;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class Controller
     Random rn = new Random();
     public AnchorPane platno;
     ArrayList<MojElement> obraz = new ArrayList<>();
-    static Circle activeCircle=null;
+    static Shape activeCircle=null;
 
     public void newCircle(ActionEvent actionEvent)
     {

@@ -38,6 +38,8 @@ public class MojKruh extends MojElement
                 activeCircle.setStroke(Color.BLACK);
             }
         };
+        grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, klik);
+        grafika.addEventFilter(MouseEvent.MOUSE_CLICKED, klik);
     }
 
     public Circle getGrafika()

@@ -1,7 +1,11 @@
 package sample;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import static sample.Controller.activeCircle;
 
 
 public class MojStvorec extends MojElement
@@ -15,6 +19,28 @@ public class MojStvorec extends MojElement
         this.a = a;
         grafika = new Rectangle(x, y, a, a);
         grafika.setFill(farba);
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                grafika.setX(e.getX()-a/2);
+                grafika.setY(e.getY()-a/2);
+
+            }
+        };
+//Adding event Filter
+        grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, eventHandler);
+        grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, eventHandler);
+
+        EventHandler<MouseEvent> klik = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (activeCircle!=null)activeCircle.setStroke(Color.WHITE);
+                activeCircle=grafika;
+                activeCircle.setStroke(Color.BLACK);
+            }
+        };
+        grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, klik);
+        grafika.addEventFilter(MouseEvent.MOUSE_CLICKED, klik);
     }
 
     public Rectangle getGrafika()
