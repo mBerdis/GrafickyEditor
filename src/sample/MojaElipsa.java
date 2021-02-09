@@ -52,6 +52,6 @@ public class MojaElipsa extends MojElement
     @Override
     public String ulozSa()
     {
-        return "E," + super.ulozSa() + "," + radiusX + "," + radiusY + "," + grafika.getFill();
+        return "E," + grafika.getCenterX() + "," + grafika.getCenterY() + "," + radiusX + "," + radiusY + "," + grafika.getFill();
     }
 }

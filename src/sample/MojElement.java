@@ -14,6 +14,6 @@ public class MojElement implements Saveable
     @Override
     public String ulozSa()
     {
-        return "" + x + "," + y;
+        return null/*"" + x + "," + y*/;
     }
 }

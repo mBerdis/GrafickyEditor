@@ -50,6 +50,6 @@ public class MojKruh extends MojElement
     @Override
     public String ulozSa()
     {
-        return "K," + super.ulozSa() + "," + polomer + "," + grafika.getFill();
+        return "K," + grafika.getCenterX() + "," + grafika.getCenterY() + "," + polomer + "," + grafika.getFill();
     }
 }

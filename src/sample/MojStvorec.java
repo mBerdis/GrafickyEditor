@@ -51,6 +51,6 @@ public class MojStvorec extends MojElement
     @Override
     public String ulozSa()
     {
-        return "S," + super.ulozSa() + "," + a + "," + grafika.getFill();
+        return "S," + grafika.getX() + "," + grafika.getY() + "," + a + "," + grafika.getFill();
     }
 }
