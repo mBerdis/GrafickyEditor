@@ -65,6 +65,7 @@ public class Controller
 
     public void load(ActionEvent actionEvent)
     {
+        clear(null);
         try
         {
             BufferedReader br = new BufferedReader(new FileReader("obraz.txt"));
