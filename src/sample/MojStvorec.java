@@ -34,9 +34,12 @@ public class MojStvorec extends MojElement
         EventHandler<MouseEvent> klik = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (activeCircle!=null)activeCircle.setStroke(Color.WHITE);
+                if (activeCircle != null) activeCircle.setStroke(null);
                 activeCircle=grafika;
-                activeCircle.setStroke(Color.BLACK);
+                activeCircle.setStroke(Color.ORANGE);
+                System.out.println("štvorec");
+                System.out.println("x: " + (grafika.getX() - a / 2) + " y: " + (grafika.getY() - a / 2));
+                System.out.println("a: " + grafika.getWidth() + " color: " + grafika.getFill());
             }
         };
         grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, klik);

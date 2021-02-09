@@ -35,9 +35,13 @@ public class MojaElipsa extends MojElement
         EventHandler<MouseEvent> klik = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                if (activeCircle!=null)activeCircle.setStroke(Color.WHITE);
+                if (activeCircle != null) activeCircle.setStroke(null);
                 activeCircle=grafika;
-                activeCircle.setStroke(Color.BLACK);
+                activeCircle.setStroke(Color.ORANGE);
+                System.out.println("elipsa");
+                System.out.println("x: " + grafika.getCenterX() + " y: " + grafika.getCenterY());
+                System.out.println("rx: " + grafika.getRadiusX() + " ry: " + grafika.getRadiusY());
+                System.out.println("color: " + grafika.getFill());
             }
         };
         grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, klik);
