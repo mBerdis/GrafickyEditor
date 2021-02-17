@@ -48,13 +48,21 @@ public class MojStvorec extends MojElement
             @Override
             public void handle(MouseEvent e)
             {
-                if (a / 2 - Math.abs(e.getX() - (getX() + a / 2)) < 5)
+                if (e.getX() - getX() < 5 || (getX() + a) - e.getX() < 5)
+                {
+                    grafika.setCursor(Cursor.H_RESIZE);
+                }
+                else if (e.getY() - getY() < 5 || (getY() + a) - e.getY() < 5)
+                    grafika.setCursor(Cursor.V_RESIZE);
+                else grafika.setCursor(Cursor.DEFAULT);
+
+                /*if (a / 2 - Math.abs(e.getX() - (getX() + a / 2)) < 5)
                 {
                     grafika.setCursor(Cursor.H_RESIZE);
                 }
                 else if (a / 2 - Math.abs(e.getY() - (getY() + a / 2)) < 5)
                     grafika.setCursor(Cursor.V_RESIZE);
-                else grafika.setCursor(Cursor.DEFAULT);
+                else grafika.setCursor(Cursor.DEFAULT);*/
 
             }
         };
