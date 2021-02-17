@@ -1,64 +1,74 @@
 package sample;
 
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
 
 
-import java.awt.*;
 
 import static sample.Controller.activeCircle;
 
-
 public class MojKruh extends MojElement
 {
-
     private double polomer;
-    private Circle grafika;
 
-    public MojKruh(double x, double y, double polomer, Color farba)
+    public MojKruh(double x, double y, double aPolomer, Color farba)
     {
         super(x, y);
-        this.polomer = polomer;
+        this.polomer = aPolomer;
         grafika = new Circle(x, y, polomer, farba);
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>()
+        {
             @Override
-            public void handle(MouseEvent e) {
+            public void handle(MouseEvent e)
+            {
+                Circle grf = (Circle) grafika;
+                if (grafika.getCursor() == Cursor.DEFAULT)
+                {
+                    setX(e.getX());
+                    grf.setCenterX(e.getX());
+                    setY(e.getY());
+                    grf.setCenterY(e.getY());
+                }
+                else
+                {
+                    polomer = Math.max(Math.abs(e.getX() - getX()), Math.abs(e.getY() - getY()));
+                    grf.setRadius(polomer);
+                }
+            }
+        };
 
-                grafika.setCenterX(e.getX());
-                grafika.setCenterY(e.getY());
-
+        EventHandler<MouseEvent> cursorChangeHandler = new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent e)
+            {
+                System.out.println("Polomer: " + polomer);
+                System.out.println("E: " + e.getX());
+                System.out.println("Circle: " + getX());
+                System.out.println("Math: " + (e.getX() - getX()));
+                System.out.println(polomer - Math.abs(e.getX() - getX()));
+                if (polomer - Math.abs(e.getX() - getX()) < 5)
+                    grafika.setCursor(Cursor.H_RESIZE);
+                else if (polomer - Math.abs(e.getY() - getY()) < 5)
+                    grafika.setCursor(Cursor.V_RESIZE);
+                else grafika.setCursor(Cursor.DEFAULT);
 
             }
         };
-//Adding event Filter
         grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, eventHandler);
-
-        EventHandler<MouseEvent> klik = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                if (activeCircle != null) activeCircle.setStroke(null);
-                activeCircle=grafika;
-                activeCircle.setStroke(Color.ORANGE);
-
-                System.out.println("kruh");
-                System.out.println("x: " + grafika.getCenterX() + " y: " + grafika.getCenterY());
-                System.out.println("r: " + grafika.getRadius() + " color: " + grafika.getFill());
-            }
-        };
         grafika.addEventFilter(MouseEvent.MOUSE_DRAGGED, klik);
         grafika.addEventFilter(MouseEvent.MOUSE_CLICKED, klik);
+        grafika.addEventFilter(MouseEvent.MOUSE_MOVED, cursorChangeHandler);
     }
 
-    public Circle getGrafika()
-    {
-        return grafika;
-    }
 
     @Override
     public String ulozSa()
     {
-        return "K," + grafika.getCenterX() + "," + grafika.getCenterY() + "," + polomer + "," + grafika.getFill();
+        return "K," + super.ulozSa() + "," + polomer + "," + grafika.getFill();
     }
 }
