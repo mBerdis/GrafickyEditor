@@ -4,10 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
-import static sample.Controller.activeCircle;
 
 
 public class MojStvorec extends MojElement
@@ -35,9 +32,10 @@ public class MojStvorec extends MojElement
                 }
                 else
                 {
-                    a = Math.max(Math.abs(e.getX() - (getX() + a / 2)), Math.abs(e.getY() - (getY() + a / 2)));
-                    ((Rectangle) grafika).setHeight(a * 2);
-                    ((Rectangle) grafika).setWidth(a * 2);
+                    a = distBetweenPointAndLine(((Rectangle) grafika).getX(), ((Rectangle) grafika).getY(), ((Rectangle) grafika).getX() + a, ((Rectangle) grafika).getY() + a, e.getX(), e.getY());
+
+                    ((Rectangle) grafika).setHeight(a);
+                    ((Rectangle) grafika).setWidth(a);
                 }
 
             }
@@ -75,5 +73,38 @@ public class MojStvorec extends MojElement
     public String ulozSa()
     {
         return "S," + super.ulozSa() + "," + a + "," + grafika.getFill();
+    }
+
+
+    private static double distBetweenPointAndLine(double x, double y, double x1, double y1, double x2, double y2)
+    {
+        // A - the standalone point (x, y)
+        // B - start point of the line segment (x1, y1)
+        // C - end point of the line segment (x2, y2)
+        // D - the crossing point between line from A to BC
+
+        double AB = distBetween(x, y, x1, y1);
+        double BC = distBetween(x1, y1, x2, y2);
+        double AC = distBetween(x, y, x2, y2);
+
+        // Heron's formula
+        double s = (AB + BC + AC) / 2;
+        double area = (double) Math.sqrt(s * (s - AB) * (s - BC) * (s - AC));
+
+        // but also area == (BC * AD) / 2
+        // BC * AD == 2 * area
+        // AD == (2 * area) / BC
+        // TODO: check if BC == 0
+        double AD = (2 * area) / BC;
+        if (AD < 10) return 10;
+        else return AD;
+    }
+
+    private static double distBetween(double x, double y, double x1, double y1)
+    {
+        double xx = x1 - x;
+        double yy = y1 - y;
+
+        return (double) Math.sqrt(xx * xx + yy * yy);
     }
 }
