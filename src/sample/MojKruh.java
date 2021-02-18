@@ -46,11 +46,6 @@ public class MojKruh extends MojElement
             @Override
             public void handle(MouseEvent e)
             {
-                System.out.println("Polomer: " + polomer);
-                System.out.println("E: " + e.getX());
-                System.out.println("Circle: " + getX());
-                System.out.println("Math: " + (e.getX() - getX()));
-                System.out.println(polomer - Math.abs(e.getX() - getX()));
                 if (polomer - Math.abs(e.getX() - getX()) < 5)
                     grafika.setCursor(Cursor.H_RESIZE);
                 else if (polomer - Math.abs(e.getY() - getY()) < 5)

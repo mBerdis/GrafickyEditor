@@ -28,16 +28,21 @@ public class MojStvorec extends MojElement
                 Rectangle grf = (Rectangle) grafika;
                 if (grafika.getCursor() == Cursor.DEFAULT)
                 {
-                    setX(e.getX());
-                    grf.setX(e.getX() - a / 2);
-                    setY(e.getY());
-                    grf.setY(e.getY() - a / 2);
+                    setX(e.getX() - grf.getWidth() / 2);
+                    grf.setX(e.getX() - grf.getWidth() / 2);
+                    setY(e.getY() - grf.getHeight() / 2);
+                    grf.setY(e.getY() - grf.getHeight() / 2);
                 }
                 else
                 {
-                    a = Math.max(Math.abs(e.getX() - (getX() + a / 2)), Math.abs(e.getY() - (getY() + a / 2)));
-                    ((Rectangle) grafika).setHeight(a * 2);
-                    ((Rectangle) grafika).setWidth(a * 2);
+                    double a_pol = Math.max(Math.abs(e.getY() - (getY() + grf.getHeight() / 2)), Math.abs(e.getX() - (getX() + grf.getWidth() / 2)));
+                    setX(getX() - (a_pol - a / 2));
+                    grf.setX(getX());
+                    setY(getY() - (a_pol - a / 2));
+                    grf.setY(getY());
+                    a = 2 * a_pol;
+                    grf.setWidth(a);
+                    grf.setHeight(a);
                 }
 
             }
@@ -48,11 +53,12 @@ public class MojStvorec extends MojElement
             @Override
             public void handle(MouseEvent e)
             {
-                if (a / 2 - Math.abs(e.getX() - (getX() + a / 2)) < 5)
+                Rectangle grf = (Rectangle) grafika;
+                if (a / 2 - Math.abs(e.getX() - (getX() + grf.getWidth() / 2)) < 5)
                 {
                     grafika.setCursor(Cursor.H_RESIZE);
                 }
-                else if (a / 2 - Math.abs(e.getY() - (getY() + a / 2)) < 5)
+                else if (a / 2 - Math.abs(e.getY() - (getY() + grf.getHeight() / 2)) < 5)
                     grafika.setCursor(Cursor.V_RESIZE);
                 else grafika.setCursor(Cursor.DEFAULT);
 
