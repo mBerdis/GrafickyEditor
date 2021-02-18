@@ -56,11 +56,6 @@ public class MojaElipsa extends MojElement
             @Override
             public void handle(MouseEvent e)
             {
-                System.out.println("Polomer: " + radiusX);
-                System.out.println("E: " + e.getX());
-                System.out.println("Circle: " + getX());
-                System.out.println("Math: " + (e.getX() - getX()));
-                System.out.println(radiusX - Math.abs(e.getX() - getX()));
                 if (radiusX - Math.abs(e.getX() - getX()) < 5)
                     grafika.setCursor(Cursor.H_RESIZE);
                 else if (radiusY - Math.abs(e.getY() - getY()) < 5)
